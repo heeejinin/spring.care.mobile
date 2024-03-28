@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 헤더 레이아웃 -->
+    <include layout="@layout/header_layout" />
+
+
+    <!-- 콘텐츠 레이아웃 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_layout"
+        android:layout_below="@+id/header_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".MainActivity">
+
+                <!-- 이미지 슬라이드 뷰 -->
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </RelativeLayout>
+
+            <!-- 공지사항 리스트뷰 -->
+            <ListView
+                android:id="@+id/listViewNotice"
+                android:layout_width="match_parent"
+                android:layout_height="190dp" />
+
+            <!-- 요양보호사 섹션 -->
+            <include layout="@layout/caregiver_section_layout" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 푸터 레이아웃 -->
+    <include
+        android:id="@+id/footer_layout"
+        layout="@layout/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
