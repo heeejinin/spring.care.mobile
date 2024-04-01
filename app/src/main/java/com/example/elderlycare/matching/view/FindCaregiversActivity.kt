@@ -47,8 +47,10 @@ class FindCaregiversActivity : AppCompatActivity() {
                         val experience = caregiverDetailsObject.getString("experience")
                         val certification = caregiverDetailsObject.getString("certification")
                         val availableHours = caregiverDetailsObject.getString("availableHours")
+                        val gender = userObject.getString("gender")
+                        val image = userObject.getString("image")
 
-                        val caregiver = Caregiver(name, country, experience, certification, availableHours)
+                        val caregiver = Caregiver(name, country, experience, certification, availableHours, image, gender)
                         caregiverList.add(caregiver)
                     }
                     caregiversAdapter.notifyDataSetChanged()
