@@ -13,11 +13,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.viewpager.widget.ViewPager
 import com.example.elderlycare.adapter.SliderAdapter
+import com.example.elderlycare.matching.view.FindCaregiversActivity
+import com.example.elderlycare.matching.view.FindJobsActivity
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
 import com.example.elderlycare.ui.NavItem3Activity
 import com.google.android.material.navigation.NavigationView
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager
@@ -80,6 +83,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item3 -> {
                     // nav_item3 선택 시 처리
                     startActivity(Intent(this, NavItem3Activity::class.java))
+                }
+                R.id.nav_find_caregivers -> {
+                    // nav_item3 선택 시 처리
+                    startActivity(Intent(this, FindCaregiversActivity::class.java))
+                }
+                R.id.nav_find_jobs -> {
+                    // nav_item3 선택 시 처리
+                    startActivity(Intent(this, FindJobsActivity::class.java))
                 }
                 // 다른 메뉴 아이템에 대한 처리
             }
