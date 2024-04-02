@@ -1,6 +1,7 @@
 package com.example.elderlycare.matching.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.elderlycare.R
 import com.example.elderlycare.matching.model.Caregiver
+import com.example.elderlycare.matching.view.CaregiverDetailActivity
 
 class CaregiversAdapter(context: Context, private val caregivers: List<Caregiver>) :
     ArrayAdapter<Caregiver>(context, 0, caregivers) {
@@ -49,7 +51,9 @@ class CaregiversAdapter(context: Context, private val caregivers: List<Caregiver
 
         // 상세보기 버튼 클릭 리스너 설정
         detailsButton?.setOnClickListener {
-            // 상세보기 기능 구현
+            val intent = Intent(context, CaregiverDetailActivity::class.java)
+            intent.putExtra("caregiverId", caregiver?.caregiverId)
+            context.startActivity(intent)
         }
 
         // 요청 버튼 클릭 리스너 설정
