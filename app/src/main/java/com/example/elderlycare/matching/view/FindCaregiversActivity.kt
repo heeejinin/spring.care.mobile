@@ -1,10 +1,11 @@
 package com.example.elderlycare.matching.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.AbsListView
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -15,7 +16,7 @@ import org.json.JSONException
 
 class FindCaregiversActivity : AppCompatActivity() {
 
-    private lateinit var caregiversListView: ListView
+    private lateinit var caregiversRecyclerView: RecyclerView
     private val caregiverList = mutableListOf<Caregiver>()
     private lateinit var caregiversAdapter: CaregiversAdapter
 
@@ -27,23 +28,30 @@ class FindCaregiversActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.matching_activity_find_caregivers)
 
-        caregiversListView = findViewById(R.id.caregivers_listview)
-        caregiversAdapter = CaregiversAdapter(this, caregiverList)
-        caregiversListView.adapter = caregiversAdapter
+        caregiversRecyclerView = findViewById(R.id.caregivers_recyclerview)
+        caregiversAdapter = CaregiversAdapter(this, caregiverList) { caregiver ->
+            val intent = Intent(this, CaregiverDetailActivity::class.java)
+            intent.putExtra("caregiverId", caregiver.caregiverId)
+            startActivity(intent)
+        }
+        caregiversRecyclerView.adapter = caregiversAdapter
+        caregiversRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        fetchCaregivers(currentPage)
+        caregiversRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-        caregiversListView.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-                val lastVisibleItem = firstVisibleItem + visibleItemCount
-                if (!isLoading && !isLastPage && lastVisibleItem == totalItemCount) {
+                if (!isLoading && !isLastPage && lastVisibleItem == totalItemCount - 1) {
                     currentPage++
                     fetchCaregivers(currentPage)
                 }
             }
-
-            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {}
         })
+
+        fetchCaregivers(currentPage)
     }
 
     private fun fetchCaregivers(page: Int) {
