@@ -48,6 +48,8 @@ android {
         }
     }
     buildToolsVersion = "34.0.0"
+
+    viewBinding{ enable = true}
 }
 
 dependencies {

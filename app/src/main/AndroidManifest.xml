@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +15,12 @@
         android:theme="@style/Theme.ElderlyCare"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".mypage.ui.MyInfoFragment"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.ui.SeniorMypageActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -29,4 +36,5 @@
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
     </application>
+
 </manifest>

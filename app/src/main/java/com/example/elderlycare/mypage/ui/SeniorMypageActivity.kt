@@ -1,61 +1,34 @@
-package com.example.elderlycare
+package com.example.elderlycare.mypage.ui
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.viewpager.widget.ViewPager
-import com.example.elderlycare.adapter.SliderAdapter
-import com.example.elderlycare.matching.view.FindCaregiversActivity
-import com.example.elderlycare.matching.view.FindJobsActivity
-import com.example.elderlycare.mypage.ui.SeniorMypageActivity
+import com.example.elderlycare.MainActivity
+import com.example.elderlycare.R
+import com.example.elderlycare.databinding.ActivitySeniorMypageBinding
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
 import com.example.elderlycare.ui.NavItem3Activity
 import com.google.android.material.navigation.NavigationView
-import java.util.Timer
-import java.util.TimerTask
+import com.google.android.material.tabs.TabLayout
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var viewPager: ViewPager
-    private lateinit var sliderAdapter: SliderAdapter
-    private val handler = Handler(Looper.getMainLooper())
-    private val updateImageRunnable = Runnable {
-        val currentItem = viewPager.currentItem
-        val nextItem = if (currentItem == sliderAdapter.count - 1) 0 else currentItem + 1
-        viewPager.setCurrentItem(nextItem, true)
-    }
-
+class SeniorMypageActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var navViewContainer: FrameLayout
-    private var isNavViewVisible = false
+    private lateinit var binding: ActivitySeniorMypageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //// 슬라이드쇼
-        viewPager = findViewById(R.id.viewPager)
-        val imageUrls = intArrayOf(
-            R.drawable.care1,
-            R.drawable.care2,
-            R.drawable.care3
-        )
-        sliderAdapter = SliderAdapter(this, imageUrls)
-        viewPager.adapter = sliderAdapter
-
-        Timer().scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                handler.post(updateImageRunnable)
-            }
-        }, 3000, 3000)
+        setContentView(R.layout.activity_senior_mypage)
+        binding = ActivitySeniorMypageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //// 네비게이션
 
@@ -85,18 +58,7 @@ class MainActivity : AppCompatActivity() {
                     // nav_item3 선택 시 처리
                     startActivity(Intent(this, NavItem3Activity::class.java))
                 }
-                R.id.nav_find_caregivers -> {
-                    // nav_item3 선택 시 처리
-                    startActivity(Intent(this, FindCaregiversActivity::class.java))
-                }
-                R.id.nav_find_jobs -> {
-                    // nav_item3 선택 시 처리
-                    startActivity(Intent(this, FindJobsActivity::class.java))
-                }
                 // 다른 메뉴 아이템에 대한 처리
-                R.id.nav_myPage -> {
-                    startActivity(Intent(this, SeniorMypageActivity::class.java))
-                }
             }
             true// true 반환하여 클릭 이벤트 소비
         }
@@ -107,16 +69,56 @@ class MainActivity : AppCompatActivity() {
             // 네비게이션 뷰를 페이지 맨 위로 이동
             moveNavViewToTop()
         }
-        // ImageView(로고==홈버튼) 클릭 이벤트 처리
+        // ImageView 클릭 이벤트 처리
         val imageViewLogo = findViewById<ImageView>(R.id.logo)
         imageViewLogo.setOnClickListener {
-
             // MainActivity로 돌아가는 Intent 생성
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }   //보완필요
-    }
 
+        val tabLayout = binding.tabs
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val transaction = supportFragmentManager.beginTransaction()
+                Log.d(">>", tab?.text.toString())
+                when (tab?.text) {
+                    "나의 정보" -> transaction.replace(R.id.tabContent, MyInfoFragment())
+                    "매칭 정보" -> transaction.replace(R.id.tabContent, MatchingInfoFragment())
+                }
+                transaction.commit()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                val transaction = supportFragmentManager.beginTransaction()
+                Log.d(">>", tab?.text.toString())
+                when (tab?.text) {
+                    "나의 정보" -> transaction.replace(R.id.tabContent, MyInfoFragment())
+                    "매칭 정보" -> transaction.replace(R.id.tabContent, MatchingInfoFragment())
+                }
+                transaction.commit()
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                val transaction = supportFragmentManager.beginTransaction()
+                Log.d(">>", tab?.text.toString())
+                when (tab?.text) {
+                    "나의 정보" -> transaction.replace(R.id.tabContent, MyInfoFragment())
+                    "매칭 정보" -> transaction.replace(R.id.tabContent, MatchingInfoFragment())
+                }
+                transaction.commit()
+            }
+        })
+        supportFragmentManager.beginTransaction().add(R.id.tabContent, MyInfoFragment()).commit()
+
+
+
+
+
+
+
+    }
     private fun toggleNavViewVisibility() {
         val navViewContainer = findViewById<FrameLayout>(R.id.nav_view_container)
         if (navViewContainer.visibility == View.VISIBLE) {
@@ -131,6 +133,9 @@ class MainActivity : AppCompatActivity() {
         // 네비게이션 뷰를 페이지 맨 위로 이동
         ViewCompat.offsetTopAndBottom(navViewContainer, -navViewContainer.top)
     }
+
+
+
 
 
 }
