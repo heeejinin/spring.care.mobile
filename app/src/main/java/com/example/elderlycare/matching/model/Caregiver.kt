@@ -7,5 +7,6 @@ data class Caregiver(
     val certification: String,
     val availableHours: String,
     val image: String,
-    val gender: String
+    val gender: String,
+    val caregiverId: Int,
 )

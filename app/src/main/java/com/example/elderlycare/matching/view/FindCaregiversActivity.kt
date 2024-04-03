@@ -1,36 +1,63 @@
 package com.example.elderlycare.matching.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.elderlycare.R
 import com.example.elderlycare.matching.adapter.CaregiversAdapter
 import com.example.elderlycare.matching.model.Caregiver
+import com.example.elderlycare.utils.Constants
 import org.json.JSONException
 
 class FindCaregiversActivity : AppCompatActivity() {
 
-    private lateinit var caregiversListView: ListView
+    private lateinit var caregiversRecyclerView: RecyclerView
     private val caregiverList = mutableListOf<Caregiver>()
     private lateinit var caregiversAdapter: CaregiversAdapter
+
+    private var currentPage = 0
+    private var isLoading = false
+    private var isLastPage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.matching_activity_find_caregivers)
 
-        caregiversListView = findViewById(R.id.caregivers_listview)
-        caregiversAdapter = CaregiversAdapter(this, caregiverList)
-        caregiversListView.adapter = caregiversAdapter
+        caregiversRecyclerView = findViewById(R.id.caregivers_recyclerview)
+        caregiversAdapter = CaregiversAdapter(this, caregiverList) { caregiver ->
+            val intent = Intent(this, CaregiverDetailActivity::class.java)
+            intent.putExtra("caregiverId", caregiver.caregiverId)
+            startActivity(intent)
+        }
+        caregiversRecyclerView.adapter = caregiversAdapter
+        caregiversRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        fetchCaregivers()
+        caregiversRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                if (!isLoading && !isLastPage && lastVisibleItem == totalItemCount - 1) {
+                    currentPage++
+                    fetchCaregivers(currentPage)
+                }
+            }
+        })
+
+        fetchCaregivers(currentPage)
     }
 
-    private fun fetchCaregivers() {
-        val url = "http://10.100.103.28/m/matching/caregivers"
+    private fun fetchCaregivers(page: Int) {
+        isLoading = true
+        val url = "${Constants.BASE_URL}/m/matching/caregivers?page=$page&field=&word="
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -38,6 +65,7 @@ class FindCaregiversActivity : AppCompatActivity() {
                 try {
                     val contentArray = response.getJSONArray("content")
                     for (i in 0 until contentArray.length()) {
+
                         val caregiverObject = contentArray.getJSONObject(i)
                         val userObject = caregiverObject.getJSONObject("user")
                         val caregiverDetailsObject = caregiverObject.getJSONObject("caregiver")
@@ -49,11 +77,17 @@ class FindCaregiversActivity : AppCompatActivity() {
                         val availableHours = caregiverDetailsObject.getString("availableHours")
                         val gender = userObject.getString("gender")
                         val image = userObject.getString("image")
+                        val caregiverId = caregiverDetailsObject.getInt("caregiverId")
 
-                        val caregiver = Caregiver(name, country, experience, certification, availableHours, image, gender)
+                        val caregiver = Caregiver(name, country, experience, certification, availableHours, image, gender, caregiverId)
                         caregiverList.add(caregiver)
                     }
+
+                    isLoading = false
                     caregiversAdapter.notifyDataSetChanged()
+
+                    val totalPages = response.getInt("totalPages")
+                    isLastPage = page == totalPages - 1
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     Toast.makeText(this, "Failed to parse JSON", Toast.LENGTH_SHORT).show()
@@ -67,5 +101,15 @@ class FindCaregiversActivity : AppCompatActivity() {
 
         val requestQueue = Volley.newRequestQueue(this)
         requestQueue.add(jsonObjectRequest)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("currentPage", currentPage)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        currentPage = savedInstanceState.getInt("currentPage")
     }
 }
