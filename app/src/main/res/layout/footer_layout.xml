@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/footer_layout"
     android:layout_width="match_parent"
-    android:layout_height="35dp"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_gravity="bottom"
-    android:background="@color/dark_gray"
-    android:orientation="horizontal">
+    android:background="@color/dark_gray">
 
     <!-- 2024 Elderly Care WebSite -->
     <TextView
         android:id="@+id/textView_website"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
@@ -27,21 +28,25 @@
     <!-- Social Media Buttons -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal">
 
         <!-- Twitter Button -->
         <ImageView
+            android:contentDescription="@string/contentDescription"
             android:id="@+id/imageView_twitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:padding="8dp"
             android:src="@drawable/x_icon" />
 
         <!-- Facebook Button -->
         <ImageView
+            android:contentDescription="@string/contentDescription"
             android:id="@+id/imageView_facebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,14 +56,14 @@
 
         <!-- LinkedIn Button -->
         <ImageView
+            android:contentDescription="@string/contentDescription"
             android:id="@+id/imageView_linkedin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:padding="8dp"
             android:src="@drawable/linkedin_icon" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
 

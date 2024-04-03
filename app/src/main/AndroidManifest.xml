@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.InfoActivity" />
         <activity android:name=".ui.NavItem1Activity" />
         <activity android:name=".ui.NavItem2Activity" />
         <activity android:name=".ui.NavItem3Activity" />
@@ -30,5 +31,7 @@
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
         <activity android:name=".matching.view.MatchingDetailActivity" />
+        <activity android:name=".notice.view.NoticeActivity" />
+        <activity android:name=".notice.view.NoticeDetailActivity" />
     </application>
 </manifest>
