@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.elderlycare.adapter.SliderAdapter
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
-import com.example.elderlycare.ui.NavItem3Activity
+import com.example.elderlycare.board.ui.ListActivity
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_item3 -> {
                     // nav_item3 선택 시 처리
-                    startActivity(Intent(this, NavItem3Activity::class.java))
+                    startActivity(Intent(this, ListActivity::class.java))
                 }
                 // 다른 메뉴 아이템에 대한 처리
             }

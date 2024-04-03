@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.example.elderlycare.MainActivity
 import com.example.elderlycare.R
+import com.example.elderlycare.board.ui.ListActivity
 import com.google.android.material.navigation.NavigationView
 
 class NavItem1Activity : AppCompatActivity() {
@@ -49,7 +50,7 @@ class NavItem1Activity : AppCompatActivity() {
                 }
                 R.id.nav_item3 -> {
                     // nav_item3 선택 시 처리
-                    startActivity(Intent(this, NavItem3Activity::class.java))
+                    startActivity(Intent(this, ListActivity::class.java))
                 }
                 // 다른 메뉴 아이템에 대한 처리
             }
