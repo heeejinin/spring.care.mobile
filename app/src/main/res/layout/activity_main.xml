@@ -33,11 +33,23 @@
                     android:layout_height="200dp" />
             </RelativeLayout>
 
-            <!-- 공지사항 리스트뷰 -->
-            <ListView
-                android:id="@+id/listViewNotice"
+            <!-- 공지사항(간단) -->
+            <TextView
+                android:id="@+id/noticeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="공지사항"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:onClick="openNoticeActivity" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/smallNotice"
                 android:layout_width="match_parent"
-                android:layout_height="190dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
             <!-- 요양보호사 섹션 -->
             <include layout="@layout/caregiver_section_layout" />
@@ -46,10 +58,7 @@
 
     <!-- 푸터 레이아웃 -->
     <include
-        android:id="@+id/footer_layout"
         layout="@layout/footer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        />
 
 </RelativeLayout>

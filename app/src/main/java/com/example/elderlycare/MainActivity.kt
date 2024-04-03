@@ -5,21 +5,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
+import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.elderlycare.adapter.SliderAdapter
-import com.example.elderlycare.ui.NavItem1Activity
-import com.example.elderlycare.ui.NavItem2Activity
-import com.example.elderlycare.board.ui.ListActivity
-import com.google.android.material.navigation.NavigationView
+import com.example.elderlycare.notice.adapter.NoticeAdapter
+import com.example.elderlycare.notice.model.NoticeResponse
+import com.example.elderlycare.notice.retrofit.RetrofitClient
+import com.example.elderlycare.notice.view.NoticeActivity
+import com.example.elderlycare.user.view.UserLoginActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var viewPager: ViewPager
     private lateinit var sliderAdapter: SliderAdapter
     private val handler = Handler(Looper.getMainLooper())
@@ -28,16 +29,15 @@ class MainActivity : AppCompatActivity() {
         val nextItem = if (currentItem == sliderAdapter.count - 1) 0 else currentItem + 1
         viewPager.setCurrentItem(nextItem, true)
     }
-
-    private lateinit var navigationView: NavigationView
-    private lateinit var navViewContainer: FrameLayout
-    private var isNavViewVisible = false
+    private lateinit var noticeRecyclerView: RecyclerView
+    private lateinit var noticeAdapter: NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //// 슬라이드쇼
+        setupNavigationView()
+
         viewPager = findViewById(R.id.viewPager)
         val imageUrls = intArrayOf(
             R.drawable.care1,
@@ -53,69 +53,41 @@ class MainActivity : AppCompatActivity() {
             }
         }, 3000, 3000)
 
-        //// 네비게이션
+        // RecyclerView 초기화(메인페이지의 smallNotice >> 공지사항 리스트 최근순으로 최대 5개 출력)
+        noticeRecyclerView = findViewById(R.id.smallNotice)
+        noticeRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        navigationView = findViewById(R.id.nav_view)
-        navViewContainer = findViewById(R.id.nav_view_container)
+        // NoticeAdapter 생성 및 RecyclerView에 연결
+        noticeAdapter = NoticeAdapter(this, mutableListOf())
+        noticeRecyclerView.adapter = noticeAdapter
 
-        // 헤더 레이아웃에서 버튼과 네비게이션 뷰 컨테이너 가져오기
-        val headerLayout = findViewById<RelativeLayout>(R.id.header_layout)
-        val btnMenu = headerLayout.findViewById<ImageButton>(R.id.btnMenu)
-        navViewContainer = headerLayout.findViewById(R.id.nav_view_container)
+        // 공지사항 목록 로드
+        loadNoticeList()
+    }
 
-        // 네비게이션 뷰 초기화
-        navigationView = findViewById(R.id.nav_view)
+    fun openNoticeActivity(view: View) {
+        val intent = Intent(this, NoticeActivity::class.java)
+        startActivity(intent)
+    }
 
-        // NavigationView 메뉴 아이템 선택 이벤트 처리
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_item1 -> {
-                    // nav_item1 선택 시 처리
-                    startActivity(Intent(this, NavItem1Activity::class.java))
+    private fun loadNoticeList() {
+        val service = RetrofitClient.noticeService
+        val call = service.getNotices()
+
+        call.enqueue(object : Callback<NoticeResponse> {
+            override fun onResponse(call: Call<NoticeResponse>, response: Response<NoticeResponse>) {
+                if (response.isSuccessful) {
+                    val noticesResponse = response.body()
+                    val notices = noticesResponse?.content ?: emptyList()
+                    noticeAdapter.updateNoticeList(notices)
+                } else {
+                    // 실패 처리
                 }
-                R.id.nav_item2 -> {
-                    // nav_item2 선택 시 처리
-                    startActivity(Intent(this, NavItem2Activity::class.java))
-                }
-                R.id.nav_item3 -> {
-                    // nav_item3 선택 시 처리
-                    startActivity(Intent(this, ListActivity::class.java))
-                }
-                // 다른 메뉴 아이템에 대한 처리
             }
-            true// true 반환하여 클릭 이벤트 소비
-        }
 
-        // 메뉴 버튼 클릭 이벤트 처리
-        btnMenu.setOnClickListener {
-            toggleNavViewVisibility()
-            // 네비게이션 뷰를 페이지 맨 위로 이동
-            moveNavViewToTop()
-        }
-        // ImageView(로고==홈버튼) 클릭 이벤트 처리
-        val imageViewLogo = findViewById<ImageView>(R.id.logo)
-        imageViewLogo.setOnClickListener {
-
-            // MainActivity로 돌아가는 Intent 생성
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }   //보완필요
+            override fun onFailure(call: Call<NoticeResponse>, t: Throwable) {
+                // 오류 처리
+            }
+        })
     }
-
-    private fun toggleNavViewVisibility() {
-        val navViewContainer = findViewById<FrameLayout>(R.id.nav_view_container)
-        if (navViewContainer.visibility == View.VISIBLE) {
-            // 네비게이션 뷰가 보이는 경우, 유지
-            navViewContainer.visibility = View.GONE
-        } else {
-            // 네비게이션 뷰가 숨겨진 경우, 보이게 함
-            navViewContainer.visibility = View.VISIBLE
-        }
-    }
-    private fun moveNavViewToTop() {
-        // 네비게이션 뷰를 페이지 맨 위로 이동
-        ViewCompat.offsetTopAndBottom(navViewContainer, -navViewContainer.top)
-    }
-
-
 }
