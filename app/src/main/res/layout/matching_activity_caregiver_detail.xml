@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <ImageView
+        android:contentDescription="@string/contentDescription"
         android:id="@+id/caregiver_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -25,11 +26,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:text="지역"
+            android:text="@string/region"
             style="@style/LabelTextStyle" />
 
         <TextView
-            android:text=":  "
+            android:text="@string/separator"
             style="@style/SeparatorTextStyle" />
 
         <TextView
@@ -45,11 +46,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:text="경력"
+            android:text="@string/experience"
             style="@style/LabelTextStyle" />
 
         <TextView
-            android:text=":  "
+            android:text="@string/separator"
             style="@style/SeparatorTextStyle" />
 
         <TextView
@@ -65,11 +66,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:text="자격증"
+            android:text="@string/certification"
             style="@style/LabelTextStyle" />
 
         <TextView
-            android:text=":  "
+            android:text="@string/separator"
             style="@style/SeparatorTextStyle" />
 
         <TextView
@@ -85,11 +86,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:text="전문분야"
+            android:text="@string/specialization"
             style="@style/LabelTextStyle" />
 
         <TextView
-            android:text=":  "
+            android:text="@string/separator"
             style="@style/SeparatorTextStyle" />
 
         <TextView
@@ -105,11 +106,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:text="이용가능시간"
+            android:text="@string/available_hours"
             style="@style/LabelTextStyle" />
 
         <TextView
-            android:text=":  "
+            android:text="@string/separator"
             style="@style/SeparatorTextStyle" />
 
         <TextView
@@ -119,10 +120,10 @@
     </LinearLayout>
 
     <Button
+        android:text="@string/request_matching"
         android:id="@+id/request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="매칭 요청"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

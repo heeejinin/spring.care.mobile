@@ -14,6 +14,7 @@
             style="@style/TitleTextStyle" />
 
         <ImageView
+            android:contentDescription="@string/contentDescription"
             android:id="@+id/caregiver_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -29,11 +30,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="이름"
+                android:text="@string/name"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -49,11 +50,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="지역"
+                android:text="@string/region"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -69,11 +70,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="경력"
+                android:text="@string/experience"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -89,11 +90,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="자격증"
+                android:text="@string/certification"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -115,6 +116,7 @@
             style="@style/TitleTextStyle" />
 
         <ImageView
+            android:contentDescription="@string/contentDescription"
             android:id="@+id/senior_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -130,11 +132,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="이름"
+                android:text="@string/name"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -150,11 +152,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="건강 상태"
+                android:text="@string/health"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -170,11 +172,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="요청 사항"
+                android:text="@string/requirements"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -202,11 +204,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="시작 날짜"
+                android:text="@string/start_date"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -222,11 +224,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="종료 날짜"
+                android:text="@string/end_date"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -242,11 +244,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="시작 시간"
+                android:text="@string/start_time"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView
@@ -262,11 +264,11 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="종료 시간"
+                android:text="@string/end_time"
                 style="@style/LabelTextStyle" />
 
             <TextView
-                android:text=":  "
+                android:text="@string/separator"
                 style="@style/SeparatorTextStyle" />
 
             <TextView

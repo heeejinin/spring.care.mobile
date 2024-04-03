@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <ImageView
+        android:contentDescription="@string/contentDescription"
         android:id="@+id/caregiver_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -59,21 +60,21 @@
         android:gravity="center">
 
         <Button
+            android:text="@string/details_view"
             android:id="@+id/details_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상세보기"
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/holo_blue_light"
             android:layout_marginBottom="8dp"
             android:paddingHorizontal="16dp" />
 
         <Button
+            android:text="@string/request_matching"
             android:id="@+id/request_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/holo_blue_dark"
-            android:text="요청"
             android:paddingHorizontal="16dp" />
 
     </LinearLayout>
