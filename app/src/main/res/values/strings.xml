@@ -3,4 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="menu_button_desc">메뉴 열기 버튼</string>
+    <string name="period_text">%1$s ~ %2$s</string>
+    <string name="time_text">%1$s ~ %2$s</string>
 </resources>

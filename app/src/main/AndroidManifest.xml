@@ -29,5 +29,6 @@
         <activity android:name=".matching.view.CaregiverDetailActivity" />
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
+        <activity android:name=".matching.view.MatchingDetailActivity" />
     </application>
 </manifest>

@@ -16,11 +16,7 @@
 
     <TextView
         android:id="@+id/name_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        style="@style/TitleTextStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,25 +25,16 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="지역"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/LabelTextStyle" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text=":  "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/SeparatorTextStyle" />
 
         <TextView
             android:id="@+id/country_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+            style="@style/ContentTextStyle" />
 
     </LinearLayout>
 
@@ -58,25 +45,16 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="경력"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/LabelTextStyle" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text=":  "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/SeparatorTextStyle" />
 
         <TextView
             android:id="@+id/experience_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+            style="@style/ContentTextStyle" />
 
     </LinearLayout>
 
@@ -87,25 +65,16 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="자격증"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/LabelTextStyle" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text=":  "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/SeparatorTextStyle" />
 
         <TextView
             android:id="@+id/certification_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+            style="@style/ContentTextStyle" />
 
     </LinearLayout>
 
@@ -116,25 +85,16 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="전문분야"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/LabelTextStyle" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text=":  "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/SeparatorTextStyle" />
 
         <TextView
             android:id="@+id/specialization_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+            style="@style/ContentTextStyle" />
 
     </LinearLayout>
 
@@ -145,25 +105,16 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
             android:text="이용가능시간"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/LabelTextStyle" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text=":  "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/SeparatorTextStyle" />
 
         <TextView
             android:id="@+id/available_hours_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+            style="@style/ContentTextStyle" />
 
     </LinearLayout>
 
