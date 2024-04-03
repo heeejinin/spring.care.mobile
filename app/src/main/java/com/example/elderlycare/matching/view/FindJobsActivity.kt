@@ -13,6 +13,7 @@ import com.android.volley.toolbox.Volley
 import com.example.elderlycare.R
 import com.example.elderlycare.matching.adapter.MatchingsAdapter
 import com.example.elderlycare.matching.model.Matching
+import com.example.elderlycare.utils.Constants
 import org.json.JSONException
 
 class FindJobsActivity : AppCompatActivity() {
@@ -59,7 +60,7 @@ class FindJobsActivity : AppCompatActivity() {
 
     private fun fetchJobs(page: Int) {
         isLoading = true
-        val url = "http://10.100.103.28/m/matching/jobs?page=$page"
+        val url = "${Constants.BASE_URL}/m/matching/jobs?page=$page"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,

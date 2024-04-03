@@ -10,6 +10,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.elderlycare.R
+import com.example.elderlycare.utils.Constants
 import org.json.JSONException
 
 class CaregiverDetailActivity : AppCompatActivity() {
@@ -42,7 +43,7 @@ class CaregiverDetailActivity : AppCompatActivity() {
     }
 
     private fun fetchCaregiverDetails(caregiverId: Int) {
-        val url = "http://10.100.103.28/m/matching/caregivers/$caregiverId"
+        val url = "${Constants.BASE_URL}/m/matching/caregivers/$caregiverId"
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,

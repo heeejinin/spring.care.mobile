@@ -26,6 +26,8 @@
             android:clickable="true"
             android:focusable="true"/>
 
+
+
         <ImageButton
             android:id="@+id/btnMenu"
             android:layout_width="60dp"
@@ -35,6 +37,17 @@
             android:background="@color/header"
             android:contentDescription="@string/menu_button_desc"
             app:srcCompat="@drawable/baseline_dehaze_24" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:text="로그인" />
+
     </com.google.android.material.appbar.MaterialToolbar>
 
     <!-- 네비게이션 뷰 레이아웃 -->

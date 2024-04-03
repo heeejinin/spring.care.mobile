@@ -5,7 +5,7 @@
     <string name="menu_button_desc">메뉴 열기 버튼</string>
     <string name="period_text">%1$s ~ %2$s</string>
     <string name="time_text">%1$s ~ %2$s</string>
-    <string name="separator">:  </string>
+    <string name="separator">:</string>
     <string name="name">이름</string>
     <string name="region">지역</string>
     <string name="experience">경력</string>
@@ -19,6 +19,11 @@
     <string name="start_time">시작 시간</string>
     <string name="end_time">종료 시간</string>
     <string name="details_view">상세보기</string>
+    <string name="accept_matching">매칭 수락</string>
     <string name="request_matching">매칭 신청</string>
     <string name="contentDescription">이미지</string>
+    <string name="login">로그인</string>
+    <string name="logout">로그아웃</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
 </resources>

@@ -33,5 +33,6 @@
         <activity android:name=".matching.view.MatchingDetailActivity" />
         <activity android:name=".notice.view.NoticeActivity" />
         <activity android:name=".notice.view.NoticeDetailActivity" />
+        <activity android:name=".user.view.UserLoginActivity" />
     </application>
 </manifest>

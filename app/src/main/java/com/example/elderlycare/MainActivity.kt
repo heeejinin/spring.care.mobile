@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -13,6 +14,7 @@ import com.example.elderlycare.notice.adapter.NoticeAdapter
 import com.example.elderlycare.notice.model.NoticeResponse
 import com.example.elderlycare.notice.retrofit.RetrofitClient
 import com.example.elderlycare.notice.view.NoticeActivity
+import com.example.elderlycare.user.view.UserLoginActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
