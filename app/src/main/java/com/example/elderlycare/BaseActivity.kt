@@ -11,12 +11,12 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import com.example.elderlycare.board.ui.ListActivity
 import com.example.elderlycare.matching.view.FindCaregiversActivity
 import com.example.elderlycare.matching.view.FindJobsActivity
 import com.example.elderlycare.ui.InfoActivity
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
-import com.example.elderlycare.ui.NavItem3Activity
 import com.example.elderlycare.user.view.UserLoginActivity
 import com.google.android.material.navigation.NavigationView
 
@@ -80,8 +80,8 @@ open class BaseActivity : AppCompatActivity() {
                 R.id.nav_item2 -> {
                     startActivity(Intent(this, NavItem2Activity::class.java))
                 }
-                R.id.nav_item3 -> {
-                    startActivity(Intent(this, NavItem3Activity::class.java))
+                R.id.nav_board -> {
+                    startActivity(Intent(this, ListActivity::class.java))
                 }
                 R.id.nav_find_caregivers -> {
                     // nav_item3 선택 시 처리
