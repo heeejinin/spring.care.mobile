@@ -13,7 +13,21 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.elderlycare.R
 import com.example.elderlycare.databinding.FragmentMyInfoBinding
+import com.example.elderlycare.mypage.service.SeniorPageService
+import com.example.elderlycare.mypage.vo.SeniorDTO
+import com.example.elderlycare.utils.Constants
+import okhttp3.Interceptor
+import okhttp3.JavaNetCookieJar
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.net.CookieManager
+import java.net.CookiePolicy
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +45,8 @@ class MyInfoFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var binding: FragmentMyInfoBinding
+    private lateinit var retrofit: Retrofit
+    private lateinit var service:  SeniorPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +70,9 @@ class MyInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+        // 프로필 사진
         val requestGalleryLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         )
@@ -89,6 +108,11 @@ class MyInfoFragment : Fragment() {
             intent.type = "image/*"
             requestGalleryLauncher.launch(intent)
         }
+
+
+        // 나의 정보 불러오기
+        setupRetrofit()
+        getSeniorInfo(21) // 사용자 로그인 아이디 줘야함
 
     }
 
@@ -142,4 +166,56 @@ class MyInfoFragment : Fragment() {
         }
         return inSampleSize
     }
+
+
+    private fun setupRetrofit() {
+        val client = setupOkHttpClient()
+
+        retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL+"/m/seniorPage/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        service = retrofit.create(SeniorPageService::class.java)
+    }
+
+    private fun setupOkHttpClient(): OkHttpClient {
+        val cookieManager = CookieManager()
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
+        val cookieJar = JavaNetCookieJar(cookieManager)
+
+        return OkHttpClient.Builder()
+            .cookieJar(cookieJar)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
+    }
+
+    private fun getSeniorInfo(userId: Long) {
+        service.SeniorInfo(userId).enqueue(object : Callback<SeniorDTO> {
+            override fun onResponse(call: Call<SeniorDTO>, response: Response<SeniorDTO>) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        val seniorDTO = response.body()
+                        Log.d(">>>", "dto: ${seniorDTO?.toString()}")
+                        binding.tvName.text = seniorDTO?.name
+                        binding.tvEmail.text = seniorDTO?.email
+                        binding.tvRole.text = seniorDTO?.roleStr
+                        binding.edAddress.text = seniorDTO?.address
+                    }
+                } else {
+                    Log.e(">>", "Failed to fetch user info")
+                }
+            }
+
+            override fun onFailure(call: Call<SeniorDTO>, t: Throwable) {
+                Log.e(">>", "Error: ${t.message}", t)
+            }
+        })
+    }
+
+
+
 }

@@ -85,7 +85,7 @@ class SeniorMypageActivity : AppCompatActivity() {
 //        }
     }
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            setTitle("Bar")
+            setTitle("")
             menuInflater.inflate(R.menu.mypage_bar_menu, menu)
             return super.onCreateOptionsMenu(menu)
         }
