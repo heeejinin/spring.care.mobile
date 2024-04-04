@@ -1,5 +1,6 @@
 package com.example.elderlycare
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -22,10 +23,38 @@ import com.google.android.material.navigation.NavigationView
 open class BaseActivity : AppCompatActivity() {
     lateinit var navigationView: NavigationView
     lateinit var navViewContainer: FrameLayout
-    private var isNavViewVisible = false
+    private lateinit var btnLogin: Button
+    private lateinit var btnLogout: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLoginLogoutButtons()
+    }
+
+    private fun updateLoginLogoutButtons() {
+        val headerLayout = findViewById<RelativeLayout>(R.id.header_layout)
+        btnLogin = headerLayout.findViewById(R.id.btnLogin)
+        btnLogout = headerLayout.findViewById(R.id.btnLogout)
+
+        val isLoggedIn = isUserLoggedIn()
+
+        if (isLoggedIn) {
+            btnLogin.visibility = View.GONE
+            btnLogout.visibility = View.VISIBLE
+        } else {
+            btnLogin.visibility = View.VISIBLE
+            btnLogout.visibility = View.GONE
+        }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val email = preferences.getString("user.email", null)
+        return email != null
     }
 
     fun setupNavigationView() {
@@ -37,6 +66,8 @@ open class BaseActivity : AppCompatActivity() {
         navViewContainer = headerLayout.findViewById(R.id.nav_view_container)
 
         navigationView = findViewById(R.id.nav_view)
+        btnLogin = headerLayout.findViewById(R.id.btnLogin)
+        btnLogout = headerLayout.findViewById(R.id.btnLogout)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -76,11 +107,29 @@ open class BaseActivity : AppCompatActivity() {
         }
 
         //로그인 버튼 클릭 이벤트 처리
-        val btnLogin = headerLayout.findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
             val intent = Intent(this, UserLoginActivity::class.java)
             startActivity(intent)
         }
+
+        //로그아웃 버튼 클릭 이벤트 처리
+        btnLogout.setOnClickListener {
+            logout()
+        }
+    }
+
+    private fun logout() {
+        val preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.remove("user.email")
+        editor.remove("user.role")
+        editor.apply()
+
+        updateLoginLogoutButtons()
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun toggleNavViewVisibility() {
