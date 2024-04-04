@@ -27,6 +27,8 @@ data class User(
                 Date(parcel.readLong()) // Date 타입을 사용하므로 Long 값에서 바로 Date로 변환합니다.
         )
 
+
+
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeLong(userId)
                 parcel.writeString(name)

@@ -46,7 +46,7 @@ class NavItem2Activity : AppCompatActivity() {
                     // nav_item2 선택 시 처리
                     startActivity(Intent(this, NavItem2Activity::class.java))
                 }
-                R.id.nav_item3 -> {
+                R.id.nav_board -> {
                     // nav_item3 선택 시 처리
                     startActivity(Intent(this, ListActivity::class.java))
                 }

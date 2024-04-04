@@ -2,34 +2,38 @@ package com.example.elderlycare.board.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.elderlycare.MainActivity
 import com.example.elderlycare.R
+import com.example.elderlycare.board.service.BoardService
 import com.example.elderlycare.board.vo.BoardVO
 import com.example.elderlycare.databinding.BoardDetailBinding
-import com.example.elderlycare.databinding.BoardDetailHeaderLayoutBinding
-import com.example.elderlycare.ui.NavItem1Activity
-import com.example.elderlycare.ui.NavItem2Activity
+import com.example.elderlycare.utils.Constants
 import com.example.ex03sqlite.util.getParcelable
 import com.example.ex03sqlite.util.showNoti
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: BoardDetailBinding
+    private lateinit var service: BoardService
     private lateinit var navigationView: NavigationView
     private lateinit var navViewContainer: FrameLayout
+    private lateinit var retrofit: Retrofit
     private var isNavViewVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,8 +89,8 @@ class DetailActivity : AppCompatActivity() {
             moveNavViewToTop()
         }
 
-        val boardDetail :BoardDetailHeaderLayoutBinding = BoardDetailHeaderLayoutBinding.inflate(layoutInflater)
-
+//        val boardDetail :BoardDetailHeaderLayoutBinding = BoardDetailHeaderLayoutBinding.inflate(layoutInflater)
+        setupRetrofit()
 
         var vo: BoardVO? =null
 
@@ -107,7 +111,76 @@ class DetailActivity : AppCompatActivity() {
         binding.tvCmtCnt.text = vo.replycnt.toString()
 
 
+        val btnDelete = binding.btnDelete
+        btnDelete.setOnClickListener {
+            var boardNum = vo.num
+            Log.d("표시", "${boardNum}")
+            deleteBoard(boardNum)
+            finish()
+            var intent = Intent(this, ListActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnUpdate = binding.btnUpdate
+        btnUpdate.setOnClickListener {
+            var boardNum = vo.num
+            var intent = Intent(this, WriteActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
     }
+
+    private fun setupRetrofit() {
+//        val client = setupOkHttpClient()
+        val gson: Gson = GsonBuilder()
+            .create()
+
+        retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL+"/m/board/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+//            .client(client)
+            .build()
+
+        service = retrofit.create(BoardService::class.java)
+    }
+
+    private fun deleteBoard(num: Long) {
+        service.deleteBoard2(num).enqueue(object : Callback<Long> {
+            override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                if (response.isSuccessful) {
+                    Log.d(">>>>", "board Num: ${response})")
+                }
+                else {
+                    Log.e(">>", "Failed to delete board")
+                }
+            }
+
+            override fun onFailure(call: Call<Long>, t: Throwable) {
+                Log.e(">>", "Error: ${t.message}", t)
+            }
+        })
+    }
+
+//    private fun setupOkHttpClient(): OkHttpClient {
+//        val cookieManager = CookieManager()
+//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
+//        val cookieJar = JavaNetCookieJar(cookieManager)
+//
+
+
+//        return OkHttpClient.Builder()
+////            .cookieJar(cookieJar)
+////            .addInterceptor(csrfInterceptor) // CSRF 토큰 인터셉터 추가
+//            .addInterceptor(HttpLoggingInterceptor().apply {
+//                level = HttpLoggingInterceptor.Level.BODY
+//            })
+//            .build()
+//    }
+
+
+
 
     private fun toggleNavViewVisibility() {
         val navViewContainer = findViewById<FrameLayout>(R.id.board_detail_nav_view_container)

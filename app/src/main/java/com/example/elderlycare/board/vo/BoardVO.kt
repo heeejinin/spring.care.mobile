@@ -7,12 +7,12 @@ import java.util.Date
 
 class BoardVO(
     var num: Long, var title: String, var writer: String, var content: String, var regdate: Date,
-    var hitcount: Long, var replycnt: Long, var user: User //주 생성자
+    var hitcount: Long, var replycnt: Long, var user: User? //주 생성자
 ) : Parcelable {
     constructor(
         title: String, writer: String, content: String, regdate: Date,
-        hitcount: Long, replycnt: Long, user: User
-    ) : this(0, title, writer, content, regdate, hitcount, replycnt, user)
+        hitcount: Long, replycnt: Long, user: User?
+    ) : this(0, title, writer, content, regdate, hitcount, replycnt, null)
 
     constructor(source: Parcel) : this(
         source.readLong(),

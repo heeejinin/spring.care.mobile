@@ -10,8 +10,8 @@
         android:id="@+id/nav_item2"
         android:title="메뉴2" />
     <item
-        android:id="@+id/nav_item3"
-        android:title="메뉴3" />
+        android:id="@+id/nav_board"
+        android:title="자유게시판" />
     <item
         android:id="@+id/nav_find_caregivers"
         android:title="요양보호사 구인" />

@@ -3,8 +3,6 @@ package com.example.elderlycare.board.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -12,25 +10,22 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elderlycare.MainActivity
 import com.example.elderlycare.R
 import com.example.elderlycare.board.adapter.BoardAdapter
 import com.example.elderlycare.board.adapter.OnBoardItemClickHandler
-import com.example.elderlycare.databinding.BoardListBinding
 import com.example.elderlycare.board.service.BoardService
 import com.example.elderlycare.board.vo.BoardVO
+import com.example.elderlycare.databinding.BoardListBinding
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
+import com.example.elderlycare.utils.Constants
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,7 +77,7 @@ class ListActivity : AppCompatActivity() {
                     // nav_item2 선택 시 처리
                     startActivity(Intent(this, NavItem2Activity::class.java))
                 }
-                R.id.nav_item3 -> {
+                R.id.nav_board -> {
                     // nav_item3 선택 시 처리
                     startActivity(Intent(this, ListActivity::class.java))
                 }
@@ -156,7 +151,7 @@ class ListActivity : AppCompatActivity() {
             .create()
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://10.100.103.20/m/board/")
+            .baseUrl(Constants.BASE_URL+"/m/board/")
             .addConverterFactory(GsonConverterFactory.create(gson))
 //            .client(client)
             .build()
