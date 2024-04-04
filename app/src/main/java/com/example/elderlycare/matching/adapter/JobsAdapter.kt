@@ -13,10 +13,10 @@ import com.example.elderlycare.matching.model.Matching
 import com.example.elderlycare.matching.view.MatchingDetailActivity
 
 
-class MatchingsAdapter(
+class JobsAdapter(
     private val context: Context,
     private val jobList: List<Matching>
-) : RecyclerView.Adapter<MatchingsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<JobsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.matching_item_matching, parent, false)
@@ -26,6 +26,20 @@ class MatchingsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val job = jobList[position]
         holder.bind(job)
+
+        // 매칭 버튼 가시성 제어
+        if (job.status == "POSTED" && isUserCaregiver()) {
+            holder.matchingButton.visibility = View.VISIBLE
+        } else {
+            holder.matchingButton.visibility = View.GONE
+        }
+    }
+
+    private fun isUserCaregiver(): Boolean {
+        // SharedPreferences에서 사용자 역할 가져오기
+        val preferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userRole = preferences.getString("user.role", "")
+        return userRole == "CAREGIVER"
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +52,7 @@ class MatchingsAdapter(
         private val timeTextView: TextView = itemView.findViewById(R.id.time_textview)
         private val statusTextView: TextView = itemView.findViewById(R.id.status_textview)
         private val detailsButton: Button = itemView.findViewById(R.id.details_button)
-        private val matchingButton: Button = itemView.findViewById(R.id.matching_button)
+        val matchingButton: Button = itemView.findViewById(R.id.matching_button)
 
         fun bind(job: Matching) {
             matchingCountryTextView.text = job.matchingCountry

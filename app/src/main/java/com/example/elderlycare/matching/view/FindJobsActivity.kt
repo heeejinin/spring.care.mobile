@@ -11,7 +11,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.elderlycare.R
-import com.example.elderlycare.matching.adapter.MatchingsAdapter
+import com.example.elderlycare.matching.adapter.JobsAdapter
 import com.example.elderlycare.matching.model.Matching
 import com.example.elderlycare.utils.Constants
 import org.json.JSONException
@@ -20,7 +20,7 @@ class FindJobsActivity : AppCompatActivity() {
 
     private lateinit var jobsRecyclerView: RecyclerView
     private val jobList = mutableListOf<Matching>()
-    private lateinit var jobsAdapter: MatchingsAdapter
+    private lateinit var jobsAdapter: JobsAdapter
 
     private var currentPage = 0
     private var isLoading = false
@@ -31,7 +31,7 @@ class FindJobsActivity : AppCompatActivity() {
         setContentView(R.layout.matching_activity_find_jobs)
 
         jobsRecyclerView = findViewById(R.id.jobs_recyclerview)
-        jobsAdapter = MatchingsAdapter(this, jobList)
+        jobsAdapter = JobsAdapter(this, jobList)
         jobsRecyclerView.adapter = jobsAdapter
         jobsRecyclerView.layoutManager = LinearLayoutManager(this)
 
