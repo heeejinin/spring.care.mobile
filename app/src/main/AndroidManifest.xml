@@ -19,9 +19,6 @@
             android:name=".mypage.ui.MyInfoFragment"
             android:exported="false" />
         <activity
-            android:name=".mypage.ui.SeniorMypageActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -34,6 +31,8 @@
         <activity android:name=".ui.NavItem1Activity" />
         <activity android:name=".ui.NavItem2Activity" />
         <activity android:name=".board.ui.ListActivity" />
+        <activity android:name=".board.ui.DetailActivity" />
+        <activity android:name=".board.ui.WriteActivity" />
         <activity android:name=".matching.view.CaregiverDetailActivity" />
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
@@ -41,6 +40,7 @@
         <activity android:name=".notice.view.NoticeActivity" />
         <activity android:name=".notice.view.NoticeDetailActivity" />
         <activity android:name=".user.view.UserLoginActivity" />
+        <activity android:name=".mypage.ui.SeniorMypageActivity" />
     </application>
 
 </manifest>

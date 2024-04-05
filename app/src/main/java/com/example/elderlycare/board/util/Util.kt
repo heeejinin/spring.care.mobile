@@ -46,3 +46,4 @@ fun <T : Parcelable> Intent.getParcelable(key: String, clazz: Class<T>): T? {
         this.getParcelableExtra(key) as T?
     }
 }
+

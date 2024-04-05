@@ -1,10 +1,13 @@
 package com.example.elderlycare.mypage.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.net.CookieManager
 import java.net.CookiePolicy
+import java.util.prefs.Preferences
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +51,7 @@ class MyInfoFragment : Fragment() {
     lateinit var binding: FragmentMyInfoBinding
     private lateinit var retrofit: Retrofit
     private lateinit var service:  SeniorPageService
+    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +59,9 @@ class MyInfoFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+
 
     }
 
@@ -112,6 +120,10 @@ class MyInfoFragment : Fragment() {
 
         // 나의 정보 불러오기
         setupRetrofit()
+//        val preferences = this.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+        // SharedPreferences에서 userEmail 가져오기
+//        val userEmail = preferences.getString("user.email", )
         getSeniorInfo(21) // 사용자 로그인 아이디 줘야함
 
     }
@@ -201,9 +213,12 @@ class MyInfoFragment : Fragment() {
                         val seniorDTO = response.body()
                         Log.d(">>>", "dto: ${seniorDTO?.toString()}")
                         binding.tvName.text = seniorDTO?.name
-                        binding.tvEmail.text = seniorDTO?.email
+                        binding.tvEmail.text = seniorDTO!!.email
                         binding.tvRole.text = seniorDTO?.roleStr
-                        binding.edAddress.text = seniorDTO?.address
+                        binding.edAddress.setText(seniorDTO?.address ?: "")
+                        binding.edPhone.setText(seniorDTO.phoneNumber ?: "")
+                        binding.edHealth.setText(seniorDTO.health ?: "")
+                        binding.edReq.setText(seniorDTO.requirements ?: "")
                     }
                 } else {
                     Log.e(">>", "Failed to fetch user info")

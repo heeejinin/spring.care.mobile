@@ -5,8 +5,8 @@ data class SeniorDTO (
     // user 정보
     val userId: Long,
     val roleStr: String,
-    val email: String?,
-    val name: String?,
+    val email: String,
+    val name: String,
     var address: String?,
 //    var password: String,
     var phoneNumber: String?,
