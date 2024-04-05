@@ -1,6 +1,7 @@
 package com.example.elderlycare.matching.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elderlycare.R
 import com.example.elderlycare.matching.model.Caregiver
+import com.example.elderlycare.matching.view.RequestMatchingActivity
 
 class CaregiversAdapter(
     private val context: Context,
@@ -62,7 +64,9 @@ class CaregiversAdapter(
             }
 
             requestButton.setOnClickListener {
-                // 요청 기능 구현
+                val intent = Intent(context, RequestMatchingActivity::class.java)
+                intent.putExtra("caregiverId", caregiver.caregiverId)
+                context.startActivity(intent)
             }
         }
     }

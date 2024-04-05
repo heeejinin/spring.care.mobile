@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu1"
+        android:title="홈으로" />
+    <item
+        android:id="@+id/menu2"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="구인" />
+    <item
+        android:id="@+id/menu3"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="구직" />
+
+    <item
+        android:id="@+id/menu4"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="자유게시판" />
+</menu>

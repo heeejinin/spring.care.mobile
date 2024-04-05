@@ -70,8 +70,8 @@ class FindJobsActivity : AppCompatActivity() {
                     for (i in 0 until contentArray.length()) {
                         val jobObject = contentArray.getJSONObject(i)
                         val id = jobObject.getInt("id")
-                        val seniorId = jobObject.getInt("seniorId")
-                        val caregiverId = jobObject.getInt("caregiverId")
+                        val seniorId = jobObject.optInt("seniorId", -1)
+                        val caregiverId = jobObject.optInt("caregiverId", -1)
                         val matchingCountry = jobObject.getString("matchingCountry")
                         val startDate = jobObject.getString("startDate")
                         val endDate = jobObject.getString("endDate")
@@ -115,4 +115,11 @@ class FindJobsActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         currentPage = savedInstanceState.getInt("currentPage")
     }
+
+    override fun onResume() {
+        super.onResume()
+        // 데이터 갱신 로직 호출
+        fetchJobs(currentPage)
+    }
+
 }

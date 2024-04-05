@@ -14,7 +14,15 @@ object RetrofitClient {
             .build()
     }
 
+    val smallNoticeService: NoticeService by lazy {
+        retrofit.create(NoticeService::class.java)
+    }
+
     val noticeService: NoticeService by lazy {
+        retrofit.create(NoticeService::class.java)
+    }
+
+    val noticeDetailService: NoticeService by lazy {
         retrofit.create(NoticeService::class.java)
     }
 }

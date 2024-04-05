@@ -16,12 +16,12 @@ data class User(
 ) : Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readLong(),
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
+                parcel.readString() ?: "",
                 parcel.readString(),
                 Date(parcel.readLong()), // Date 타입을 사용하므로 Long 값에서 바로 Date로 변환합니다.
                 Date(parcel.readLong()) // Date 타입을 사용하므로 Long 값에서 바로 Date로 변환합니다.

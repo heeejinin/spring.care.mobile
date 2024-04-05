@@ -19,4 +19,7 @@
         android:id="@+id/nav_find_jobs"
         android:title="요양보호사 구직" />
     <!-- 필요한 만큼 메뉴 아이템을 추가합니다. -->
+    <item
+        android:id="@+id/nav_myPage"
+        android:title="마이 페이지" />
 </menu>

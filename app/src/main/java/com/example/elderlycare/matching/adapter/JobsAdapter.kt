@@ -67,7 +67,7 @@ class JobsAdapter(
             }
 
             matchingButton.setOnClickListener {
-                // 매칭 기능 구현
+                //매칭 수락 버튼 기능 구현
             }
         }
 
