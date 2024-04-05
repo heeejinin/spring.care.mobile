@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your app's theme here. -->
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="TitleTextStyle">
@@ -34,5 +35,9 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+
+
 
 </resources>

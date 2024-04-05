@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import com.example.elderlycare.board.ui.ListActivity
 import com.example.elderlycare.matching.view.FindCaregiversActivity
 import com.example.elderlycare.matching.view.FindJobsActivity
+import com.example.elderlycare.mypage.ui.SeniorMypageActivity
 import com.example.elderlycare.ui.InfoActivity
 import com.example.elderlycare.ui.NavItem1Activity
 import com.example.elderlycare.ui.NavItem2Activity
@@ -90,6 +91,10 @@ open class BaseActivity : AppCompatActivity() {
                 R.id.nav_find_jobs -> {
                     // nav_item3 선택 시 처리
                     startActivity(Intent(this, FindJobsActivity::class.java))
+                }
+                R.id.nav_myPage -> {
+                    // nav_item3 선택 시 처리
+                    startActivity(Intent(this, SeniorMypageActivity::class.java))
                 }
             }
             true

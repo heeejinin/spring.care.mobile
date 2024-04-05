@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".board.ui.UpdateActivity"
+            android:name=".mypage.ui.MyInfoFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -40,6 +40,7 @@
         <activity android:name=".notice.view.NoticeActivity" />
         <activity android:name=".notice.view.NoticeDetailActivity" />
         <activity android:name=".user.view.UserLoginActivity" />
+        <activity android:name=".mypage.ui.SeniorMypageActivity" />
     </application>
 
 </manifest>

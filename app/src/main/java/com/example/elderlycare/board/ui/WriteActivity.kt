@@ -1,5 +1,6 @@
 package com.example.elderlycare.board.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -80,6 +81,11 @@ class WriteActivity : AppCompatActivity() {
                 }
             })
         }
+
+        val preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userEmail = preferences.getString("user.email", "")
+        Log.d(">>>>", "${userEmail}")
+
     }
 
 
