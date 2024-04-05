@@ -15,9 +15,7 @@
         android:theme="@style/Theme.ElderlyCare"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".board.ui.HeaderActivity"
-            android:exported="false" />
+
         <activity
             android:name=".board.ui.UpdateActivity"
             android:exported="false" />
