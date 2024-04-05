@@ -15,50 +15,36 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <ImageView
-            android:contentDescription="@string/contentDescription"
             android:id="@+id/logo"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             android:scaleX="1.5"
             android:scaleY="1.2"
-            android:src="@drawable/logo3"
+            android:src="@drawable/logo2"
             android:clickable="true"
             android:focusable="true"/>
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자유게시판"
+            android:textSize="25sp"
+            android:layout_marginLeft="28dp"
+            />
 
         <ImageButton
             android:id="@+id/btnMenu"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="end"
-            android:scaleX="0.8"
-            android:background="@color/header"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/pink"
             android:contentDescription="@string/menu_button_desc"
-            app:srcCompat="@drawable/baseline_dehaze_24" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:text="@string/login" />
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:text="@string/logout" />
-
+            android:cropToPadding="false"
+            android:padding="16dp"
+            app:tint="#FFF" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <!-- 네비게이션 뷰 레이아웃 -->

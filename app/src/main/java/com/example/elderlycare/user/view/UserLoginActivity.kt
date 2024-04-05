@@ -1,13 +1,21 @@
 package com.example.elderlycare.user.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkError
+import com.android.volley.ParseError
 import com.android.volley.Request
+import com.android.volley.ServerError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.elderlycare.MainActivity
 import com.example.elderlycare.R
 import com.example.elderlycare.utils.Constants
 import org.json.JSONObject
@@ -45,15 +53,36 @@ class UserLoginActivity : AppCompatActivity() {
             Request.Method.POST, url, requestBody,
             { response ->
                 // 로그인 성공 처리
-                val email = response.getString("email")
-                val role = response.getString("role")
-                // TODO: 로그인 성공 후 처리 로직 추가
+                val userEmail = response.getString("email")
+                val userRole = response.getString("role")
+
+                // 사용자 정보 저장 (예: SharedPreferences)
+                val preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                val editor = preferences.edit()
+                editor.putString("user.email", userEmail)
+                editor.putString("user.role", userRole)
+                editor.apply()
                 Toast.makeText(this@UserLoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
+
+
+                // 메인 액티비티로 이동
+                val intent = Intent(this@UserLoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             },
             { error ->
                 // 로그인 실패 처리
-                // TODO: 로그인 실패 처리 로직 추가
-                Toast.makeText(this@UserLoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                val errorMessage = when (error) {
+                    is NetworkError -> "네트워크 오류가 발생했습니다."
+                    is ServerError -> "서버 오류가 발생했습니다."
+                    is AuthFailureError -> "이메일 또는 비밀번호를 확인해주세요."
+                    is ParseError -> "응답 데이터 파싱 오류가 발생했습니다."
+                    else -> "로그인 실패"
+                }
+                AlertDialog.Builder(this@UserLoginActivity)
+                    .setMessage(errorMessage)
+                    .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
+                    .show()
             }
         )
 
