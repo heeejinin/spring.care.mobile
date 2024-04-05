@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elderlycare.R
 import com.example.elderlycare.notice.model.Notice
-import com.example.elderlycare.notice.model.NoticeResponse
 import com.example.elderlycare.notice.retrofit.RetrofitClient
 import com.example.elderlycare.notice.view.NoticeDetailActivity
 import retrofit2.Call
@@ -79,26 +78,24 @@ class NoticeAdapter(
         return noticeList.size
     }
 
-    fun loadNotices() {
+    fun loadNotice() {
         val service = RetrofitClient.noticeService
-        val call = service.getNotices()
+        val call = service.getAllNotices()
 
-        call.enqueue(object : Callback<NoticeResponse> {
-            override fun onResponse(call: Call<NoticeResponse>, response: Response<NoticeResponse>) {
+        call.enqueue(object : Callback<List<Notice>> {
+            override fun onResponse(call: Call<List<Notice>>, response: Response<List<Notice>>) {
                 if (response.isSuccessful) {
-                    val noticesResponse = response.body()
-                    val notices = noticesResponse?.content ?: emptyList()
-                    if (notices != null) {
+                    val notices = response.body() ?: emptyList()
                         noticeList = notices
                         notifyDataSetChanged()
-                    }
+
                 } else {
                     // 서버로부터 공지사항을 가져오지 못했을 때의 처리
                     // 예: 오류 메시지 표시 등
                 }
             }
 
-            override fun onFailure(call: Call<NoticeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<Notice>>, t: Throwable) {
                 // 서버 통신 실패 시의 처리
                 // 예: 네트워크 오류 메시지 표시 등
             }

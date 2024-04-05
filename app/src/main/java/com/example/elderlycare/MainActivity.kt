@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.elderlycare.adapter.SliderAdapter
 import com.example.elderlycare.notice.adapter.NoticeAdapter
-import com.example.elderlycare.notice.model.NoticeResponse
+import com.example.elderlycare.notice.model.Notice
 import com.example.elderlycare.notice.retrofit.RetrofitClient
 import com.example.elderlycare.notice.view.NoticeActivity
-import com.example.elderlycare.user.view.UserLoginActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +51,7 @@ class MainActivity : BaseActivity() {
             }
         }, 3000, 3000)
 
-        // RecyclerView 초기화(메인페이지의 smallNotice >> 공지사항 리스트 최근순으로 최대 5개 출력)
+        // RecyclerView 초기화(smallNotice : 메인페이지의  recyclerview >> 공지사항 리스트 최근순으로 최대 5개 출력기능을 아래에 fun에 추가)
         noticeRecyclerView = findViewById(R.id.smallNotice)
         noticeRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -62,7 +60,7 @@ class MainActivity : BaseActivity() {
         noticeRecyclerView.adapter = noticeAdapter
 
         // 공지사항 목록 로드
-        loadNoticeList()
+        loadSmallNotice()
     }
 
     fun openNoticeActivity(view: View) {
@@ -70,22 +68,21 @@ class MainActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    private fun loadNoticeList() {
-        val service = RetrofitClient.noticeService
-        val call = service.getNotices()
+    private fun loadSmallNotice() {
+        val service = RetrofitClient.smallNoticeService
+        val call = service.getSmallNotices(5)
 
-        call.enqueue(object : Callback<NoticeResponse> {
-            override fun onResponse(call: Call<NoticeResponse>, response: Response<NoticeResponse>) {
+        call.enqueue(object : Callback<List<Notice>>  {
+            override fun onResponse(call: Call<List<Notice>> , response: Response<List<Notice>> ) {
                 if (response.isSuccessful) {
-                    val noticesResponse = response.body()
-                    val notices = noticesResponse?.content ?: emptyList()
+                    val notices = response.body() ?: emptyList()
                     noticeAdapter.updateNoticeList(notices)
                 } else {
                     // 실패 처리
                 }
             }
 
-            override fun onFailure(call: Call<NoticeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<Notice>> , t: Throwable) {
                 // 오류 처리
             }
         })
