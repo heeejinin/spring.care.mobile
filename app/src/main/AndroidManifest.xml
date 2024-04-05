@@ -33,7 +33,7 @@
         <activity android:name=".ui.InfoActivity" />
         <activity android:name=".ui.NavItem1Activity" />
         <activity android:name=".ui.NavItem2Activity" />
-        <activity android:name=".ui.NavItem3Activity" />
+        <activity android:name=".board.ui.ListActivity" />
         <activity android:name=".matching.view.CaregiverDetailActivity" />
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
