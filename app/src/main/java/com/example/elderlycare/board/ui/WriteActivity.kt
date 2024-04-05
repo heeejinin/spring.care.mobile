@@ -1,8 +1,12 @@
 package com.example.elderlycare.board.ui
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.elderlycare.R
@@ -11,6 +15,7 @@ import com.example.elderlycare.board.vo.BoardDTO
 import com.example.elderlycare.board.vo.BoardVO
 import com.example.elderlycare.databinding.BoardWriteBinding
 import com.example.elderlycare.utils.Constants
+import com.example.ex03sqlite.util.hideKeyboard
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -80,6 +85,16 @@ class WriteActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event?.action) {
+            // rawX, rawY는 스크린, 즉 화면의 좌표값, x, y는 View안의 좌표값
+            MotionEvent.ACTION_DOWN -> Log.d(">>", "Touch down x: ${event.x} , rawX: ${event.rawX}")
+            MotionEvent.ACTION_UP -> Log.d(">>", "Touch up")
+        }
+        hideKeyboard(this)
+        return super.onTouchEvent(event)
     }
 
 

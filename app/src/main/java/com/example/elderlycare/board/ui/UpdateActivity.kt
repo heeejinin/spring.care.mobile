@@ -2,6 +2,8 @@ package com.example.elderlycare.board.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -12,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.elderlycare.R
 import com.example.elderlycare.databinding.BoardWriteBinding
+import com.example.ex03sqlite.util.hideKeyboard
 import com.google.android.material.navigation.NavigationView
 
 class UpdateActivity : AppCompatActivity() {
@@ -69,15 +72,17 @@ class UpdateActivity : AppCompatActivity() {
         var binding = BoardWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-
-
-
-
-
     }
 
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event?.action) {
+            // rawX, rawY는 스크린, 즉 화면의 좌표값, x, y는 View안의 좌표값
+            MotionEvent.ACTION_DOWN -> Log.d(">>", "Touch down x: ${event.x} , rawX: ${event.rawX}")
+            MotionEvent.ACTION_UP -> Log.d(">>", "Touch up")
+        }
+        hideKeyboard(this)
+        return super.onTouchEvent(event)
+    }
 
 
     private fun toggleNavViewVisibility() {

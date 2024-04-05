@@ -22,4 +22,7 @@ interface BoardService {
 
     @GET("csrf-token")
     fun getCsrfToken(): Call<Map<String, String>>
+
+    @POST("updateHit/{num}")
+    fun updateHit(@Path("num") num: Long): Call<Void>
 }

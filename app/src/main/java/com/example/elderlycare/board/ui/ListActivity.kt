@@ -112,6 +112,8 @@ class ListActivity : AppCompatActivity() {
         adapter.handler = object : OnBoardItemClickHandler {
             override fun onItemClick(holder: BoardAdapter.BoardViewHolder, v: View, idx: Int) {
                 val vo = adapter.getBoard(idx)
+                updateHit(vo.num)
+
                 //액티비티 사이에 데이터를 주고 받을 땐 intent사용
                 val intent = Intent(applicationContext, DetailActivity::class.java) //detail 액티비티
                 intent.putExtra("board", vo) //데이터를 담아서 출력
@@ -119,6 +121,9 @@ class ListActivity : AppCompatActivity() {
 //                Log.d(">>", vo.toString())
 //                arraylist 특징 (순서 o, 중복 o)
                 startActivity(intent)
+
+
+
             }
         }
 
@@ -126,6 +131,7 @@ class ListActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, WriteActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun toggleNavViewVisibility() {
@@ -157,8 +163,23 @@ class ListActivity : AppCompatActivity() {
             .build()
 
         service = retrofit.create(BoardService::class.java)
+    }
 
 
+    private fun updateHit(num: Long){
+        service.updateHit(num).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d(">>>>", "board Num: ${response})")
+                }
+                else {
+                    Log.e(">>", "Failed to delete board")
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e(">>", "Error: ${t.message}", t)
+            }
+        })
     }
 
     private fun getBoardList() {

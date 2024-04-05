@@ -30,35 +30,49 @@
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:text="게시글 작성" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/write"
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_gray"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="5dp"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardCornerRadius="20dp"
+        android:layout_margin="10dp">
 
-        <EditText
-            android:id="@+id/title"
+        <LinearLayout
+            android:id="@+id/write"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Title" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:singleLine="false"
-            android:layout_height="510dp"
-            android:layout_margin="5dp"
-            android:ems="10"
-            android:gravity="start"
-            android:background="@null"
-            android:hint="Contents"
-            android:inputType="textMultiLine"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="510dp"
+                android:layout_margin="5dp"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="Contents"
+                android:inputType="textMultiLine"
+                android:singleLine="false" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="100dp"

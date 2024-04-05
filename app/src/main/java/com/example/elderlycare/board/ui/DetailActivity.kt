@@ -3,9 +3,11 @@ package com.example.elderlycare.board.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,7 @@ import com.example.elderlycare.R
 import com.example.elderlycare.board.service.BoardService
 import com.example.elderlycare.board.vo.BoardVO
 import com.example.elderlycare.databinding.BoardDetailBinding
+
 import com.example.elderlycare.utils.Constants
 import com.example.ex03sqlite.util.getParcelable
 import com.example.ex03sqlite.util.showNoti
@@ -34,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var navViewContainer: FrameLayout
     private lateinit var retrofit: Retrofit
-    private var isNavViewVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +48,11 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-
-
         binding = BoardDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+
 
         //// 네비게이션
         navigationView = findViewById(R.id.board_detail_nav_view)
@@ -57,12 +60,15 @@ class DetailActivity : AppCompatActivity() {
 
         // 헤더 레이아웃에서 버튼과 네비게이션 뷰 컨테이너 가져오기
         val headerLayout = findViewById<RelativeLayout>(R.id.board_detail_header_layout)
+        val btnBack = headerLayout.findViewById<ImageView>(R.id.btnBack)
         val btnMenu = headerLayout.findViewById<ImageButton>(R.id.btnMenu)
         navViewContainer = headerLayout.findViewById(R.id.board_detail_nav_view_container)
 
-        // 네비게이션 뷰 초기화
-        navigationView = findViewById(R.id.board_detail_nav_view)
-
+        btnBack.setOnClickListener {
+            val intent = Intent(this@DetailActivity, ListActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
 
 //        // NavigationView 메뉴 아이템 선택 이벤트 처리
@@ -88,9 +94,8 @@ class DetailActivity : AppCompatActivity() {
             // 네비게이션 뷰를 페이지 맨 위로 이동
             moveNavViewToTop()
         }
-
-//        val boardDetail :BoardDetailHeaderLayoutBinding = BoardDetailHeaderLayoutBinding.inflate(layoutInflater)
         setupRetrofit()
+
 
         var vo: BoardVO? =null
 
@@ -107,7 +112,7 @@ class DetailActivity : AppCompatActivity() {
         binding.tvWriter.text = vo.writer
         binding.tvDate.text = vo.regdate.toString()
         binding.tvContents.text = vo.content
-        binding.tvHitCnt.text = vo.hitcount.toString()
+        binding.tvHitCnt.text = (vo.hitcount+1).toString()
         binding.tvCmtCnt.text = vo.replycnt.toString()
 
 
@@ -163,6 +168,13 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        setTitle("")
+        menuInflater.inflate(R.menu.board_bar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
 //    private fun setupOkHttpClient(): OkHttpClient {
 //        val cookieManager = CookieManager()
 //        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
@@ -178,8 +190,6 @@ class DetailActivity : AppCompatActivity() {
 //            })
 //            .build()
 //    }
-
-
 
 
     private fun toggleNavViewVisibility() {
