@@ -4,7 +4,7 @@
     android:id="@+id/caregiver_section_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="35dp"
+    android:layout_above="@+id/footer_layout"
     android:orientation="vertical">
 
     <!-- 요양보호사 섹션 -->
