@@ -73,13 +73,14 @@ class FindCaregiversActivity : AppCompatActivity() {
                         val name = userObject.getString("name")
                         val country = userObject.getString("country")
                         val experience = caregiverDetailsObject.getString("experience")
+                        val experienceYears = caregiverDetailsObject.getInt("experienceYears")
                         val certification = caregiverDetailsObject.getString("certification")
                         val availableHours = caregiverDetailsObject.getString("availableHours")
                         val gender = userObject.getString("gender")
                         val image = userObject.getString("image")
                         val caregiverId = caregiverDetailsObject.getInt("caregiverId")
 
-                        val caregiver = Caregiver(name, country, experience, certification, availableHours, image, gender, caregiverId)
+                        val caregiver = Caregiver(name, country, experience, experienceYears, certification, availableHours, image, gender, caregiverId)
                         caregiverList.add(caregiver)
                     }
 

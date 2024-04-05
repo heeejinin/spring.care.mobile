@@ -37,6 +37,7 @@
         <activity android:name=".matching.view.FindCaregiversActivity" />
         <activity android:name=".matching.view.FindJobsActivity" />
         <activity android:name=".matching.view.MatchingDetailActivity" />
+        <activity android:name=".matching.view.RequestMatchingActivity" />
         <activity android:name=".notice.view.NoticeActivity" />
         <activity android:name=".notice.view.NoticeDetailActivity" />
         <activity android:name=".user.view.UserLoginActivity" />

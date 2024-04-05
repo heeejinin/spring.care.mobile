@@ -9,5 +9,5 @@ data class Matching(
     val endDate: String,
     val startTime: String,
     val endTime: String,
-    val status: String
+    val status: String,
 )
