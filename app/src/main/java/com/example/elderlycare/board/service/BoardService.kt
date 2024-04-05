@@ -1,5 +1,6 @@
 package com.example.elderlycare.board.service
 
+import com.example.elderlycare.board.vo.BoardDTO
 import com.example.elderlycare.board.vo.BoardVO
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,7 +18,7 @@ interface BoardService {
     fun deleteBoard2(@Path("num") num: Long) : Call <Long>
 
     @POST("write")
-    fun write(@Body boardVO: BoardVO) : Call<Void>
+    fun write(@Body boardDTO: BoardDTO) : Call<Void>
 
     @GET("csrf-token")
     fun getCsrfToken(): Call<Map<String, String>>
